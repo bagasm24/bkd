@@ -52,7 +52,10 @@ class FortifyServiceProvider extends ServiceProvider
                 'password' => 'required|string',
             ]);
 
-            $user = DB::table('users')->where('nidn', $request->nidn)->first();
+            $user = DB::table('users')
+                ->where('nidn', $request->nidn)
+                ->orWhere('username', $request->nidn)
+                ->first();
 
             if ($user && Hash::check($request->password, $user->password)) {
                 session(['nidn' => $user->nidn]);

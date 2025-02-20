@@ -49,6 +49,7 @@ class BkdController extends Controller
                     return $bkd['id_smt'] == $tahunAjaran;
                 });
 
+                // dd($filterBKD);
                 $dataDosen = Sdm::where('id_sdm', $dosen)->get();
                 // log($dataDosen);
 
