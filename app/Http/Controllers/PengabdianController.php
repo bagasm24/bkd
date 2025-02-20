@@ -109,9 +109,7 @@ class PengabdianController extends Controller
     public function getDataPengabdianFromAPI($id_sdm)
     {
         set_time_limit(0);
-        $sdm = Sdm::find($id_sdm);
         $baseUrl = env('BASE_URL');
-        $bearerToken = env('API_BEARER_TOKEN');
         $getToken = $this->getToken();
         // dd($bearerToken);
         if (!$baseUrl || !$getToken) {
@@ -138,18 +136,18 @@ class PengabdianController extends Controller
                     return false;
                 });
                 // dd($responseData);
-                foreach ($filteredData as $pengabdian) {
-                    Pengabdian::create([
-                        'id_sdm' => $id_sdm,
-                        'id_pengabdian' => $pengabdian['id'],
-                        'judul' => $pengabdian['judul'],
-                        'lama_kegiatan' => $pengabdian['lama_kegiatan'],
-                        'bidang_keilmuan' => json_encode($pengabdian['bidang_keilmuan']),
-                        'tahun_pelaksanaan' => $pengabdian['tahun_pelaksanaan'],
-                    ]);
-                }
+                // foreach ($filteredData as $pengabdian) {
+                //     Pengabdian::create([
+                //         'id_sdm' => $id_sdm,
+                //         'id_pengabdian' => $pengabdian['id'],
+                //         'judul' => $pengabdian['judul'],
+                //         'lama_kegiatan' => $pengabdian['lama_kegiatan'],
+                //         'bidang_keilmuan' => json_encode($pengabdian['bidang_keilmuan']),
+                //         'tahun_pelaksanaan' => $pengabdian['tahun_pelaksanaan'],
+                //     ]);
+                // }
 
-                // return $filteredData;
+                return $filteredData;
             } else {
                 return response()->json([
                     'success' => false,
