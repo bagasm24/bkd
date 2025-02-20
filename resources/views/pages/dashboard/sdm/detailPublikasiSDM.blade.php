@@ -110,6 +110,11 @@
                                     </th>
                                     <th>
                                         <span class="flex items-center">
+                                            Urutan Penulis
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="flex items-center">
                                             Asal Data
                                         </span>
                                     </th>
@@ -129,6 +134,7 @@
                                             -
                                         @endif
                                     </td>
+                                    <td>{{ $d['urutan_penulis'] }}</td>
                                     <td>{{ $d['asal_data'] }}</td>
                                 @endforeach
                             </tbody>
@@ -167,6 +173,11 @@
                                     </th>
                                     <th>
                                         <span class="flex items-center">
+                                            Urutan Penulis
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="flex items-center">
                                             Asal Data
                                         </span>
                                     </th>
@@ -186,6 +197,7 @@
                                             -
                                         @endif
                                     </td>
+                                    <td>{{ $d['urutan_penulis'] }}</td>
                                     <td>{{ $d['asal_data'] }}</td>
                                 @endforeach
                             </tbody>
@@ -224,6 +236,11 @@
                                     </th>
                                     <th>
                                         <span class="flex items-center">
+                                            Urutan Penulis
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="flex items-center">
                                             Asal Data
                                         </span>
                                     </th>
@@ -243,6 +260,7 @@
                                             -
                                         @endif
                                     </td>
+                                    <td>{{ $d['urutan_penulis'] }}</td>
                                     <td>{{ $d['asal_data'] }}</td>
                                 @endforeach
                             </tbody>
@@ -281,6 +299,11 @@
                                     </th>
                                     <th>
                                         <span class="flex items-center">
+                                            Urutan Penulis
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="flex items-center">
                                             Asal Data
                                         </span>
                                     </th>
@@ -300,6 +323,7 @@
                                             -
                                         @endif
                                     </td>
+                                    <td>{{ $d['urutan_penulis'] }}</td>
                                     <td>{{ $d['asal_data'] }}</td>
                                 @endforeach
                             </tbody>
@@ -338,6 +362,11 @@
                                     </th>
                                     <th>
                                         <span class="flex items-center">
+                                            Urutan Penulis
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="flex items-center">
                                             Asal Data
                                         </span>
                                     </th>
@@ -357,6 +386,7 @@
                                             -
                                         @endif
                                     </td>
+                                    <td>{{ $d['urutan_penulis'] }}</td>
                                     <td>{{ $d['asal_data'] }}</td>
                                 @endforeach
                             </tbody>
@@ -395,6 +425,11 @@
                                     </th>
                                     <th>
                                         <span class="flex items-center">
+                                            Urutan Penulis
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="flex items-center">
                                             Asal Data
                                         </span>
                                     </th>
@@ -414,6 +449,7 @@
                                             -
                                         @endif
                                     </td>
+                                    <td>{{ $d['urutan_penulis'] }}</td>
                                     <td>{{ $d['asal_data'] }}</td>
                                 @endforeach
                             </tbody>

@@ -4,26 +4,30 @@
         <div class="grid grid-cols-12 gap-6">
             <!-- Table (Top Channels) -->
             <div class="col-span-full xl:col-span-full bg-white dark:bg-gray-800 shadow-sm rounded-xl">
-                <header class="px-5 py-4 border-b border-gray-100 dark:border-gray-700/60">
-                    <h2 class="font-semibold text-gray-800 dark:text-gray-100">Pengabdian <span class="text-xs text-slate-500">(Data diambil dari 3 tahun terakhir)</span></h2>
+                <header class="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-700/60">
+                    <div class="">
+                        <h2 class="font-semibold text-gray-800 dark:text-gray-100">Pengabdian <span class="text-xs text-slate-500">(Data diambil dari 3 tahun terakhir)</span></h2>
+                        {{-- <p class="text-xs text-slate-500">Data update : {{ !empty($sync['updated_at']) ? date('d/m/Y', strtotime($sync['updated_at'])) : '-' }}</p> --}}
+                    </div>
+                    @livewire('sync-pengabdian')
                 </header>
                 <div class="p-3">
                     <!-- Table -->
                     <div class="overflow-x-auto">
-                        <table class="table-auto w-full dark:text-gray-300">
+                        <table id="pagination-table">
                             <!-- Table header -->
-                            <thead class="text-xs uppercase text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-700 dark:bg-opacity-50 rounded-sm">
+                            <thead>
                                 <tr>
                                     {{-- <th class="p-2">
                                         <div class="font-semibold text-left">No</div>
                                     </th> --}}
-                                    <th class="p-2">
+                                    <th>
                                         <div class="font-semibold text-left">Judul</div>
                                     </th>
-                                    <th class="p-2">
+                                    <th>
                                         <div class="font-semibold text-center">Lama Kegiatan</div>
                                     </th>
-                                    <th class="p-2">
+                                    <th>
                                         <div class="font-semibold text-center">Tahun Pelaksanaan</div>
                                     </th>
                                     {{-- <th class="p-2">
@@ -35,20 +39,20 @@
                                 </tr>
                             </thead>
                             <!-- Table body -->
-                            <tbody class="text-sm font-medium divide-y divide-gray-100 dark:divide-gray-700/60">
+                            <tbody>
                                 <!-- Row -->
                                 @foreach ($data as $d )
                                     <tr>
                                         {{-- <td class="p-2">
                                             <div class="">{{ $loop->iteration }}</div>
                                         </td> --}}
-                                        <td class="p-2">
+                                        <td>
                                             <div class="">{{ $d['judul'] }}</div>
                                         </td>
-                                        <td class="p-2">
+                                        <td>
                                             <div class="text-center">{{ $d['lama_kegiatan'] }} Tahun</div>
                                         </td>
-                                        <td class="p-2">
+                                        <td>
                                             <div class="text-center">{{ $d['tahun_pelaksanaan'] }}</div>
                                         </td>
                                         {{-- <td class="p-2">
@@ -70,3 +74,15 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+    
+if (document.getElementById("pagination-table") && typeof simpleDatatables.DataTable !== 'undefined') {
+    const dataTable = new simpleDatatables.DataTable("#pagination-table", {
+        paging: true,
+        perPage: 5,
+        perPageSelect: [5, 10, 15, 20, 25],
+        sortable: false
+    });
+}
+
+</script>

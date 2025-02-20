@@ -115,11 +115,11 @@ class PenelitianController extends Controller
     public function getDataPenelitianFromAPI($id_sdm)
     {
         set_time_limit(0);
-        $sdm = Sdm::find($id_sdm);
+        // $sdm = Sdm::find($id_sdm);
         $baseUrl = env('BASE_URL');
         // dd($id_sdm);
         // dd($baseUrl);
-        $bearerToken = env('API_BEARER_TOKEN');
+        // $bearerToken = env('API_BEARER_TOKEN');
         $getToken = $this->getToken();
         // dd($bearerToken);
         if (!$baseUrl || !$getToken) {
@@ -146,18 +146,18 @@ class PenelitianController extends Controller
                     return false;
                 });
                 // dd($responseData);
-                foreach ($filteredData as $penelitian) {
-                    Penelitian::create([
-                        'id_sdm' => $id_sdm,
-                        'id_penelitian' => $penelitian['id'],
-                        'judul' => $penelitian['judul'],
-                        'lama_kegiatan' => $penelitian['lama_kegiatan'],
-                        'bidang_keilmuan' => json_encode($penelitian['bidang_keilmuan']),
-                        'tahun_pelaksanaan' => $penelitian['tahun_pelaksanaan'],
-                    ]);
-                }
+                // foreach ($filteredData as $penelitian) {
+                //     Penelitian::create([
+                //         'id_sdm' => $id_sdm,
+                //         'id_penelitian' => $penelitian['id'],
+                //         'judul' => $penelitian['judul'],
+                //         'lama_kegiatan' => $penelitian['lama_kegiatan'],
+                //         'bidang_keilmuan' => json_encode($penelitian['bidang_keilmuan']),
+                //         'tahun_pelaksanaan' => $penelitian['tahun_pelaksanaan'],
+                //     ]);
+                // }
 
-                // return $filteredData;
+                return $filteredData;
             } else {
                 return response()->json([
                     'success' => false,
