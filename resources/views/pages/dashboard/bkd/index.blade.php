@@ -2,27 +2,31 @@
   <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
     <form id="form-cek-bkd">
       @csrf
-      <label for="tahunAjaran" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Tahun Ajaran</label>
-      <select id="tahunAjaran" name="tahunAjaran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        @foreach($tahunAjaran as $t)
-          <option value="{{ $t->tahun }}">{{ $t->semester }}</option>
-        @endforeach
-      </select>
-
-      <label for="dosen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Dosen</label>
-      <select id="dosen" name="dosen" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        @foreach($dataDosen as $d)
-          <option value="{{ $d->id_sdm }}">{{ $d->nama_sdm }}</option>
-        @endforeach
-      </select>
-
+      <div class="flex gap-2">
+        <div class="w-48 flex-none">
+          <label for="tahunAjaran" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Tahun Ajaran</label>
+          <select id="tahunAjaran" name="tahunAjaran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            @foreach($tahunAjaran as $t)
+              <option value="{{ $t->tahun }}">{{ $t->semester }}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="flex-1">
+          <label for="dosen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Dosen</label>
+          <select id="dosen" name="dosen" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            @foreach($dataDosen as $d)
+              <option value="{{ $d->id_sdm }}">{{ $d->nama_sdm }}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
       <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-2">
         Cek Laporan BKD
       </button>
     </form>
 
     <!-- Tempat untuk menampilkan hasil -->
-    <div class="mt-4">
+    <div class="">
       <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Hasil Laporan BKD</h3>
       <div id="hasil-container"></div>
     </div>
@@ -38,6 +42,24 @@
         let tahunAjaran = $("#tahunAjaran").val();
         let dosen = $("#dosen").val();
         let token = $('input[name="_token"]').val(); // CSRF Token
+
+        function formatNumber(number) {
+            // Konversi ke angka
+            number = Number(number);
+
+            // Cek apakah konversi berhasil (bukan NaN)
+            if (isNaN(number)) {
+                return '0'; // Atau kembalikan nilai default yang diinginkan
+            }
+
+            // Hapus desimal jika bilangan bulat
+            if (Math.floor(number) === number) {
+                return number.toFixed(0);
+            }
+
+            // Hapus nol di belakang desimal
+            return number.toFixed(4).replace(/0+$/, '').replace(/\.$/, '');
+        }
 
         $.ajax({
           url: "{{ route('cekBKD') }}",
@@ -57,7 +79,7 @@
             }
             let table = `
             <div class="">
-               <table class="border-1 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <table class="border-1 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
                   <tr class="border-b text-center">
                     <th class="px-4 py-2"></th>
@@ -74,10 +96,10 @@
                         Ajar
                     </th>
                     <td class="bg-gray-50 dark:bg-gray-800 px-4 py-2">
-                        ${bkd.sks_kinerja_ajar}
+                      ${formatNumber(bkd.sks_kinerja_ajar)}
                     </td>
                     <td class="px-4 py-2">
-                        ${bkd.sks_lebih_ajar}
+                      ${formatNumber(bkd.sks_lebih_ajar)}
                     </td>
                 </tr>
                 <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -85,10 +107,10 @@
                         Didik
                     </th>
                     <td class="bg-gray-50 dark:bg-gray-800 px-4 py-2">
-                        ${bkd.sks_kinerja_didik}
+                        ${formatNumber(bkd.sks_kinerja_didik)}
                     </td>
                     <td class="px-4 py-2">
-                        ${bkd.sks_lebih_didik}
+                        ${formatNumber(bkd.sks_lebih_didik)}
                     </td>
                 </tr>
                 <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -96,10 +118,10 @@
                         LIT
                     </th>
                     <td class="bg-gray-50 dark:bg-gray-800 px-4 py-2">
-                        ${bkd.sks_kinerja_lit}
+                        ${formatNumber(bkd.sks_kinerja_lit)}
                     </td>
                     <td class="px-4 py-2">
-                        ${bkd.sks_lebih_lit}
+                        ${formatNumber(bkd.sks_lebih_lit)}
                     </td>
                 </tr>
                 <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -107,10 +129,10 @@
                         PengMas
                     </th>
                     <td class="bg-gray-50 dark:bg-gray-800 px-4 py-2">
-                        ${bkd.sks_kinerja_pengmas}
+                        ${formatNumber(bkd.sks_kinerja_pengmas)}
                     </td>
                     <td class="px-4 py-2">
-                        ${bkd.sks_lebih_pengmas}
+                        ${formatNumber(bkd.sks_lebih_pengmas)}
                     </td>
                 </tr>
                 <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -118,10 +140,10 @@
                         Penunjang
                     </th>
                     <td class="bg-gray-50 dark:bg-gray-800 px-4 py-2">
-                        ${bkd.sks_kinerja_penunjang}
+                        ${formatNumber(bkd.sks_kinerja_penunjang)}
                     </td>
                     <td class="px-4 py-2">
-                        ${bkd.sks_lebih_tunjang}
+                        ${formatNumber(bkd.sks_lebih_tunjang)}
                     </td>
                 </tr>
                 <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -129,10 +151,10 @@
                         SKS
                     </th>
                     <td class="bg-gray-50 dark:bg-gray-800 px-4 py-2">
-                        ${bkd.sks_kinerja}
+                        ${formatNumber(bkd.sks_kinerja)}
                     </td>
                     <td class="px-4 py-2">
-                        ${bkd.sks_lebih}
+                        ${formatNumber(bkd.sks_lebih)}
                     </td>
                 </tr>
                 <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -159,8 +181,8 @@
                         ${bkd.stat_belajar}
                     </td>
                 </tr>
-                <tr class="border-b text-gray-900 border-gray-200 dark:border-gray-700 font-semibold">
-                    <th scope="row" class="bg-gray-50 dark:bg-gray-800 px-4 py-2">
+                <tr class="border-b border-gray-200 dark:border-gray-700 font-semibold">
+                    <th scope="row" class="bg-gray-50 dark:bg-gray-800 px-4 py-2 dark:text-white dark:bg-gray-800 text-gray-900">
                         Simpulan Asesor
                     </th>
                     <td class="bg-gray-50 dark:bg-gray-800 px-4 py-2" colspan="2">
