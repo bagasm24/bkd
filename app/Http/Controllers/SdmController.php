@@ -807,12 +807,16 @@ class SdmController extends Controller
 
                 // Jurnal Nasional API
                 $jurnalNasional = collect($filteredPublikasi)->filter(function ($publikasi) {
-                    return $publikasi['id_jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional')->first()->id;
+                    return $publikasi['id_jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional')->first()->id
+                        && collect($publikasi['penulis'])->contains(function ($penulis) {
+                            return $penulis['urutan'] === 1 || $penulis['corresponding_author'] === 1;
+                        });
                 });
 
                 // Jurnal Nasional Manual
                 $jurnalNasionalManual = collect($filteredPublikasiManual)->filter(function ($publikasi) {
-                    return $publikasi['jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional')->first()->id;
+                    return $publikasi['jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional')->first()->id
+                        && $publikasi['urutan_penulis'] === 1;
                 });
 
                 // Gabungan Jurnal Nasional
@@ -820,12 +824,16 @@ class SdmController extends Controller
 
                 // Jurnal Nasional Terakreditasi API
                 $jurnalNasionalTerakreditasi = collect($filteredPublikasi)->filter(function ($publikasi) {
-                    return $publikasi['id_jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional terakreditasi')->first()->id;
+                    return $publikasi['id_jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional terakreditasi')->first()->id
+                        && collect($publikasi['penulis'])->contains(function ($penulis) {
+                            return $penulis['urutan'] === 1 || $penulis['corresponding_author'] === 1;
+                        });
                 });
 
                 // Jurnal Nasional Terakreditasi Manual
                 $jurnalNasionalTerakreditasiManual = collect($filteredPublikasiManual)->filter(function ($publikasi) {
-                    return $publikasi['jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional terakreditasi')->first()->id;
+                    return $publikasi['jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional terakreditasi')->first()->id
+                        && $publikasi['urutan_penulis'] === 1;
                 });
 
                 // Gabungan Jurnal Nasional TerAkreditasi
@@ -898,12 +906,16 @@ class SdmController extends Controller
 
                 // Jurnal Nasional API
                 $jurnalNasional = collect($filteredPublikasi)->filter(function ($publikasi) {
-                    return $publikasi['id_jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional')->first()->id;
+                    return $publikasi['id_jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional')->first()->id
+                        && collect($publikasi['penulis'])->contains(function ($penulis) {
+                            return $penulis['urutan'] === 1 || $penulis['corresponding_author'] === 1;
+                        });
                 });
 
                 // Jurnal Nasional Manual
                 $jurnalNasionalManual = collect($filteredPublikasiManual)->filter(function ($publikasi) {
-                    return $publikasi['jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional')->first()->id;
+                    return $publikasi['jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional')->first()->id
+                        && $publikasi['urutan_penulis'] === 1;
                 });
 
                 //Gabungan Jurnal Nasional
@@ -911,12 +923,16 @@ class SdmController extends Controller
 
                 // Jurnal Nasional Terakreditasi API
                 $jurnalNasionalTerakreditasi = collect($filteredPublikasi)->filter(function ($publikasi) {
-                    return $publikasi['id_jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional terakreditasi')->first()->id;
+                    return $publikasi['id_jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional terakreditasi')->first()->id
+                        && collect($publikasi['penulis'])->contains(function ($penulis) {
+                            return $penulis['urutan'] === 1 || $penulis['corresponding_author'] === 1;
+                        });
                 });
 
                 // Jurnal Nasional Terakreditasi Manual
                 $jurnalNasionalTerakreditasiManual = collect($filteredPublikasiManual)->filter(function ($publikasi) {
-                    return $publikasi['jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional terakreditasi')->first()->id;
+                    return $publikasi['jenis_publikasi'] === JenisPublikasi::where('nama', 'Jurnal nasional terakreditasi')->first()->id
+                        && $publikasi['urutan_penulis'] === 1;
                 });
 
                 //Gabungan Jurnal Nasional Terakreditasi
