@@ -16,6 +16,7 @@ use App\Http\Controllers\PenelitianController;
 use App\Http\Controllers\PengabdianController;
 use App\Http\Controllers\PublikasiController;
 use App\Http\Controllers\SdmController;
+use App\Http\Controllers\UserController;
 use App\Http\Livewire\DetailPublikasiSDM;
 use App\Models\KategoriKegiatan;
 use App\Models\Publikasi;
@@ -50,7 +51,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     //     // })->name('calendar');
     // }); 
 
-    Route::get('/dashboard/datapegawai', [SdmController::class, 'index'])->name('datapegawai');
+    Route::get('/dashboard/datadosen', [SdmController::class, 'index'])->name('datadosen');
     Route::get('/dashboard/sdm/{id_sdm}', [PublikasiController::class, 'detailPublikasiSDM']);
     Route::get('/dashboard/penelitian/{id}', [PenelitianController::class, 'detailPenelitian']);
     Route::get('/dashboard/pengabdian/{id}', [PengabdianController::class, 'detailPengabdian']);
@@ -70,4 +71,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return response()->json($sub2Kategori);
     });
     Route::post('/sync-sdm', [SdmController::class, 'syncData']);
+    Route::get('/dashboard/user', [UserController::class, 'index'])->name('userBKD');
+    Route::post('/user/create', [UserController::class, 'createUserBKDAdmin'])->name('user.create');
 });
